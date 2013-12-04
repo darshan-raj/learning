@@ -1,25 +1,40 @@
 <!doctype html>
-<html lang="en" ng-app="phonecatApp">
-<head>
-  <meta charset="utf-8">
-  <title>Google Phone Gallery</title>
-  <link rel="stylesheet" href="css/app.css">
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/animations.css">
+<html lang="en" ng-app>
+	<head>
+		<meta charset="utf-8">
+		<title>Form App</title>
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<script src="http://code.angularjs.org/1.2.3/angular.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+	</head>
+	<body>
+		<div class="view-container" ng-controller="FormController">
+			<label>Name : </label>
+			<input ng-model="user.name" /> <br>
 
-  <script src="lib/jquery/jquery-1.10.2.js"></script>
-  <script src="lib/angular/angular.js"></script>
-  <script src="lib/angular/angular-animate.js"></script>
-  <script src="lib/angular/angular-resource.js"></script>
-  <script src="lib/angular/angular-route.js"></script>
+			<label>Address : </label>
+			<input ng-model="user.address.line1" / required> <br>
+			<input ng-model="user.address.city" /> <br>
+			<input ng-model="user.address.state" /> <br>
+			<input ng-model="user.address.zip" ng-pattern="zip" /> <br>
 
-  <script src="js/app.js"></script>
-</head>
-<body>
+			<label>Phone : </label>
+			[ <a href="" ng-click="addContact()">add</a> ]
+			<div ng-repeat="contact in user.contacts">
+				<select ng-model="contact.type">
+					<option>email</option>
+					<option>phone</option>
+					<option>pager</option>
+					<option>IM</option>
+				</select>
 
-  <div class="view-container">
-    <div ng-view class="view-frame"></div>
-  </div>
+				<input ng-model="contact.value" />
+				[ <a href="" ng-click="removeContact(contact)">X</a> ]
+			</div>
 
-</body>
+			<hr />
+			Debug view:
+			<pre>user = {{user | json}}</pre>
+		</div>
+	</body>
 </html>
